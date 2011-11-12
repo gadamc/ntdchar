@@ -1,0 +1,134 @@
+<form id="input">
+
+   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+   
+      <legend>NTD Info</legend>
+
+      <div class="input-row">
+         <label class="input-label">Name</label>
+         <input id="iname" name="iname" placeholder="ex. 38-2" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>        
+      
+   
+   </fieldset>
+
+   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+      
+      <legend>Measurement</legend>
+
+      <div class="input-row">
+         <label class="input-label">Technique</label>
+         <input id="itech" name="itech" placeholder="ex. ???" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>    
+      <div class="input-row">
+         <label class="input-label">Location</label>
+         <select id="iinst" name="iinst" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+            <option value="Sacaly">Saclay</option>
+             <option value="Orsay">Orsay</option>
+             <option value="LSM Lab">LSM Lab</option>
+             <option value="LSM Underground">LSM Underground</option>
+             <option value="Lyon">Lyon</option>
+             <option value="Tuebingen">Tuebingen</option>
+             <option value="Oxford">Oxford</option>
+         </select>
+         <span class="istatus"></span>   
+      </div>  
+      <div class="input-row">
+         <label class="input-label">Date</label>
+         <input id="idate" name="idate" placeholder="mm/dd/yyyy" class="input-box ui-widget-content ui-corner-all" style="width:100px"/>
+         <span class="istatus"></span>
+      </div>     
+      <div class="input-row">
+         <label class="input-label">Description</label>
+         <textarea id="imdesc" name="imdesc" placeholder="Detailed description" cols="80"  class="input-textarea ui-widget-content ui-corner-all"></textarea>
+         <span class="istatus"></span>
+      </div>
+      <div class="input-row">
+         <label class="input-label">Data Type</label>
+         <select id="idatatype" name="idatatype" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+            <option value="V(I)">V(I)</option>
+            <option value="R(T)">R(T)</option>
+         </select>
+         <span class="istatus"></span>   
+      </div>
+      
+      <div class="input-row">
+         <label class="input-label">TSV Raw Data</label>
+         <textarea id="icsvdata" name="icsvdata" placeholder="Copy and Past in raw Tab-Separated Data (default IgorPro output format). First row must be the name of the columns." cols="80" rows="20" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+         <span class="istatus"></span>
+      </div>
+
+      <div class="input-row">
+         <label class="input-label">TSV Final Data</label>
+         <textarea id="icsvfinaldata" name="icsvfinaldata" placeholder="Copy and Past in final calculated Tab-Separated Data (default IgorPro output format). First row must be the name of the columns." cols="80" rows="20" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+         <span class="istatus"></span>
+      </div>
+      
+      <div class="input-row">
+         <label class="input-label">Wire Type</label>
+         <select id="iwiretype" name="iwiretype" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+            <option value="Al">Al</option>
+            <option value="Au">Au</option>
+         </select>
+         <span class="istatus"></span>   
+      </div>      
+   
+     <br/>
+    <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+            
+      <legend>Samba Related Information</legend>
+      
+      <div class="input-row">
+         <label class="input-label">Run</label>
+         <input id="isambarun" name="isambarun" placeholder="ex. lk07b003" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>
+      
+      <div class="input-row">
+         <label class="input-label">Detector</label>
+         <input id="idet" name="idet" placeholder="ex. ID401AB (use the exact Samba name)" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>
+      
+      <div class="input-row">
+         <label class="input-label">Channel</label>
+         <input id="ichanname" name="ichanname" placeholder="ex. ChalA (use the exact Samba name)" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>
+      
+      <div class="input-row">
+         <label class="input-label">Conditions</label>
+         <input id="isambaruncondition" name="isambaruncondition" placeholder="ex. event, stream, other... " class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>
+            
+      <div class="input-row">
+         <label class="input-label">Comments</label>
+         <input id="isambacomment" name="isambacomment" class="input-box ui-widget-content ui-corner-all" style="width:300px"/>
+         <span class="istatus"></span>
+      </div>
+   </fieldset>
+   
+    </fieldset>
+   
+   <fieldset class="ui-widget ui-widget-content ui-corner-all entry">
+      
+      <legend>Data Source</legend>
+   
+      <div class="input-row">
+         <label class="input-label">Data by</label>
+         <input id="iref" name="iref" placeholder="From where/whom was the data obtained? (ex. Claudia Nones)" class="input-box ui-widget-content ui-corner-all" style="width:400px"/>
+         <span class="istatus"></span>
+      </div>      
+      <div class="input-row">
+         <label class="input-label">Entry by</label>
+         <input id="ientry" name="ientry" placeholder="Your Name" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <input id="ientrycon" name="ientrycon" placeholder="Your Email" class="input-box ui-widget-content ui-corner-all" style="width:150px"/>
+         <span class="istatus"></span>
+      </div>
+
+   </fieldset>
+
+</form> 
