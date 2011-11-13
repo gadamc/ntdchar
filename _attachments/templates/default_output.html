@@ -57,13 +57,23 @@
          </td>
       </tr>
       
-        
+      <tr class="measurement-downloadCSV">
+	     <td class="item">Download</td>
+         <td><a href = "_show/ntdcsvdata/${_id}">CSV</a></td>
+		 <td><a href = "../../${_id}">JSON</a></td>
+      </tr> 
+		
       {{if measurement.sambainfo }} 
+		<tr class="measurement-metadata">
+          <td class="category">Samba Info</td>
+		  <td></td><td></td>
+       </tr>
+
       
       {{if measurement.sambainfo.run}} 
          <tr class="measurement-metadata">
             <td></td>
-            <td class="item">Samba Run Number</td>
+            <td class="item">Run</td>
             <td>${measurement.sambainfo.run}</td>
          </tr>
       {{/if}}       
@@ -71,7 +81,7 @@
       {{if measurement.sambainfo.detector}} 
          <tr class="measurement-metadata">
             <td></td>
-            <td class="item">Samba Detector Name</td>
+            <td class="item">Detector</td>
             <td>${measurement.sambainfo.detector}</td>
          </tr>
       {{/if}}
@@ -79,7 +89,7 @@
       {{if measurement.sambainfo.channel}} 
          <tr class="measurement-metadata">
             <td></td>
-            <td class="item">Samba NTD Channel Name</td>
+            <td class="item">Channel</td>
             <td>${measurement.sambainfo.channel}</td>
          </tr>
       {{/if}}
@@ -87,7 +97,7 @@
       {{if measurement.sambainfo.condition}} 
          <tr class="measurement-metadata">
             <td></td>
-            <td class="item">Samba Run Conditions</td>
+            <td class="item">Conditions</td>
             <td>${measurement.sambainfo.condition}</td>
          </tr>
       {{/if}}
@@ -95,7 +105,7 @@
       {{if measurement.sambainfo.comments}} 
          <tr class="measurement-metadata">
             <td></td>
-            <td class="item">Samba Special Comment</td>
+            <td class="item">Comments</td>
             <td>${measurement.sambainfo.comments}</td>
          </tr>
       {{/if}}
@@ -117,6 +127,8 @@
       </tr>
       {{/if}}
       
+	  
+
       {{if measurement.data }} 
       <tr>
          <td class="result-details measurement-metadata"></td>

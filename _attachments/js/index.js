@@ -26,20 +26,6 @@ $(document).ready(function(){
       $.template("input_template", tmp);   
       $.tmpl("input_template", null).appendTo("#input-form");
 
-      $( ".add-entry" ).button({
-         icons: {
-            primary: "ui-icon-plus"
-         },
-         text: false
-      })
-
-      $( ".remove-entry" ).button({
-         icons: {
-            primary: "ui-icon-minus"
-         },
-         text: false
-      })
-
       $(function() {
 		   $( "#idate" ).datepicker();
 	   }); 
@@ -102,6 +88,9 @@ $(document).ready(function(){
    $( "#button-clear2_2" ).button();
    $( "#button-submit_2" ).button();
     
+   $( "#button-downloadcsv" ).button();   
+   $( "#button-downloadjson" ).button();
+     
    $( "#dialog-submit" ).dialog({ autoOpen: false, modal: true, resizable: false });   
    
    $("input:text:visible:first").focus();
@@ -367,6 +356,22 @@ function getAllNtds() {
             
     });
 };
+// 
+// function downloadcsv(docObj)
+// {
+//   // $.ajax({
+//   //       type: 'GET',
+//   //       data: null,
+//   //       url: '_show/ntdcsvdata/' + docObj.value
+//   //       }
+//   //   );
+//   $.get('_show/ntdcsvdata/' + docObj.value, function(data){$('.result').html(data);});
+// }
+// 
+// function downloadjson(docObj)
+// {
+//   $.get('_show/ntdjsondata/' + docObj.value, function(data){return data;});
+// }
 
 /*
 // ____________________________________________________________________________________
