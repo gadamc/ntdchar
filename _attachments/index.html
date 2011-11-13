@@ -70,7 +70,7 @@
   
     <div id="tab-submit">
         <input id="loginname" type="text" class="ui-widget ui-widget-content ui-corner-all"/>
-        <input id="loginpassword" type="password"  class="ui-widget ui-widget-content ui-corner-all"/>
+        <input id="loginpassword" type="password"  onkeydown="javascript:enter_password(event);" class="ui-widget ui-widget-content ui-corner-all"/>
         <button id="button-login"  onclick="javascript:login();" >Login</button>
         <button id="button-logout" onclick="javascript:logout();" align="right">Logout</button>
      	<button id="button-submit" onclick="javascript:click_submit();">Submit</button>     

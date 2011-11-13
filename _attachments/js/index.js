@@ -76,12 +76,6 @@ $(document).ready(function(){
       getAllNtds(); 
    });
    
-   /// /search output
-   //    $.get('templates/default_output.html', function(tmp) {               
-   //        $.template("search_output_template", tmp);  
-   //     });
-   //     
-   
    
    $( "#button-expand" ).button();   
    $( "#button-collapse" ).button();   
@@ -316,8 +310,21 @@ function searchResults(val) {
   //need to get couchdb version from $.couch.info() in order to determine
   //the correct couchdb-lucene search URL. They format has changed. 
    //var search_url  = $.couch.urlPrefix+'/_fti/local/'+db.info.db_name+'/_design/app/fullsearch?q=' + val;
-   var search_url  = $.couch.urlPrefix+'/_fti/local/ntdchar/_design/app/fullsearch?q=' + val;
-
+   // var cinfo = {};
+   //    $.couch.info({async=false, function(data){
+   //      cinfo = data.constructor();
+   //     }
+   //    });
+   //    
+   //    var version = cinfo.split('.');
+   //    var search_url = "";
+   //    
+   //    if(version[0] >= 1 && version[1] >= 1) {
+     search_url  = $.couch.urlPrefix+'/_fti/local/ntdchar/_design/app/fullsearch?q=' + val; 
+   // }
+   //    else{
+   //      search_url  = $.couch.urlPrefix+'/ntdchar/_fti/_design/app/fullsearch?q=' + val;
+   //    }
    //also, how do i get the design document _id and place it in here? the _id is found in the
    //_id file in the top directory of this couchapp. does the couchapp have a mechanism
    //to place this data in here?
@@ -442,6 +449,21 @@ function enter_box(event) {
       
       //$( "#box-search" ).autocomplete("close");
       click_search();
+      event.returnValue = false; // for IE
+      if (event.preventDefault()) event.preventDefault(); 
+   
+   }
+
+   return false;     
+        
+}
+
+/// ____________________________________________________________________________________
+function enter_password(event) {    
+ 
+   if (event.keyCode == 13) {  //keycode 13 is the enter key
+      
+      login();
       event.returnValue = false; // for IE
       if (event.preventDefault()) event.preventDefault(); 
    
