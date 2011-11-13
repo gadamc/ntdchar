@@ -185,9 +185,9 @@ function click_submit() {
 
       var arr_idate = $("#idate").val().split("/");
        
-      var imonth = arr_idate[0]; 
-      var iday   = arr_idate[1]; 
-      var iyear  = arr_idate[2]; 
+      var imonth = parseInt(arr_idate[0]); 
+      var iday   = parseInt(arr_idate[1]); 
+      var iyear  = parseInt(arr_idate[2]); 
      
       var iresult = $("#icsvdata").val().split("\n");
       var theRawData = parseTextData(iresult, $("#idatadelim").val() );
