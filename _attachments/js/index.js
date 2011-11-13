@@ -1,5 +1,5 @@
 
-var db = $.couch.db('ntdchar');
+var db = $.couch.db('ntdchar');  //how do we automate this??? 
 
 //dear newbie, $ == jQuery, which is a reference to an instace of a jQuery object. You could replace
 //every $ with 'jQuery' and you'd get the same functionality. 
@@ -15,7 +15,7 @@ $(document).ready(function(){
 
    // Menu bars            
    $( "input:submit", ".menu-bar" ).button();
-	$( ".menu-bar" ).click(function() { return false; });             
+	 $( ".menu-bar" ).click(function() { return false; });             
 
    // Plug-in to style placeholder in old Browsers
    $( "input, textarea" ).placehold( "something-temporary" );
@@ -76,11 +76,15 @@ $(document).ready(function(){
       getAllNtds(); 
    });
    
+   /// /search output
+   //    $.get('templates/default_output.html', function(tmp) {               
+   //        $.template("search_output_template", tmp);  
+   //     });
+   //     
+   
    
    $( "#button-expand" ).button();   
    $( "#button-collapse" ).button();   
-   $( "#button-expand2" ).button();   
-   $( "#button-collapse2" ).button();
     
    $( "#button-clear1" ).button();   
    $( "#button-clear2" ).button();
@@ -93,6 +97,9 @@ $(document).ready(function(){
    $( "#button-login" ).button();
    $( "#button-logout").button();
    
+   $( "#button-search").button();
+   $( "#button-expand2" ).button();   
+   $( "#button-collapse2" ).button();
    
    $.couch.session({  //check to see if a user has already logged in. 
      success: function(data) {
@@ -187,17 +194,9 @@ function click_submit() {
       var imonth = arr_idate[0]; 
       var iday   = arr_idate[1]; 
       var iyear  = arr_idate[2]; 
-      
-      // Build the JSON for the results 
-      //   (complex because fields don't have unique IDs)
-      
-
-       
+     
       var iresult = $("#icsvdata").val().split("\n");
       var theRawData = parseTextData(iresult, $("#idatadelim").val() );
-      
-      //var ifinalresult = $("#icsvfinaldata").val().split("\n");
-      //var theFinalData = parseTextData(ifinalresult);
       
       // Build the overall JSON
             
@@ -272,26 +271,26 @@ function click_detail() {
 function click_collapse() {
   
   $("img[class='collapsibleOpen']").click();
-  $("#button-expand").val("Expand");      
-  collapsed = true;
+  //$("#button-expand").val("Expand");      
+  //collapsed = true;
   
 }
 // ____________________________________________________________________________________
 function click_expand() {
 
   $("img[class='collapsibleClosed']").click();
-  $("#button-expand").val("Collapse");
-  collapsed = false;
+  //$("#button-expand").val("Collapse");
+  //collapsed = false;
 
 }
 
-/*
+
 // ____________________________________________________________________________________
 function click_search() {
   
    var entry = $("#box-search").val();
 
-   if ( entry == "" || entry == "e.g. tin") {
+   if ( entry == "" || entry == "e.g. 38-2") {
       $("#box-search").focus();
       $("div#materials").empty(); 
       return false;
@@ -299,61 +298,69 @@ function click_search() {
          
    searchResults($("#box-search").val()); 
      
-   collapsed = true;
-   $("#button-expand").val("Expand");
+   //collapsed = true;
+   //$("#button-expand").val("Expand");
    
-   detailed = false;
-   $("#button-detail").val("More detail");
+   //detailed = false;
+   //$("#button-detail").val("More detail");
    
-   return false;
+   return true;
 
 }; 
-*/
 
-/*
+
+
 // ____________________________________________________________________________________
 function searchResults(val) {
 
-   var search_url  = '/aarm/_fti/_design/test/search?q=' + val + '&include_docs=true';
+  //need to get couchdb version from $.couch.info() in order to determine
+  //the correct couchdb-lucene search URL. They format has changed. 
+   //var search_url  = $.couch.urlPrefix+'/_fti/local/'+db.info.db_name+'/_design/app/fullsearch?q=' + val;
+   var search_url  = $.couch.urlPrefix+'/_fti/local/ntdchar/_design/app/fullsearch?q=' + val;
 
-   if ( val.toLowerCase() == "all" ) {
-      search_url = '/aarm/_all_docs?include_docs=true';
-   };
+   //also, how do i get the design document _id and place it in here? the _id is found in the
+   //_id file in the top directory of this couchapp. does the couchapp have a mechanism
+   //to place this data in here?
 
-   $("#materials").empty();
+   $("#searchntdrecords").empty();
    
    $.ajax({ 
         
       url: search_url,
       dataType: 'json', 
-      async: false,
       success: function(data) {
 
          if ( data.total_rows > 0 ) {
-
-            $("#materials").append('<ul id="output">');
-   
-            for ( j = 0; j < data.total_rows; j++ ) { 
-   
-               var doc = data.rows[j].doc;
-               if ( doc.type == "measurement" ) {
-                  $.tmpl("output_template", doc).appendTo("#output");
-               }
-   
-            }
-   
-            $("#materials").append('</ul>');
-            makeCollapsible(document.getElementById('output'));
-            $(".measurement-metadata").hide();
+           
+           $("#searchntdrecords").append('<ul id="search_output">');
+           
+           for ( j = 0; j < data.rows.length; j++ ) {
+             var nodata_url = "_show/nodata/" + data.rows[j].id;
+             
+             $.ajax({
+               url: nodata_url,
+               dataType: 'json',
+               async: false,
+               success:function(data){
+                 $.tmpl("output_template", data).appendTo("#search_output");
+               },
+                error: function(req, textStatus, errorThrown){alert('Error '+ textStatus);}
+             });
+              
+           }
+           
+           $("#searchntdrecords").append('</ul>');
+           makeCollapsible(document.getElementById('search_output'));
+           $(".measurement-metadata").show();
 
          }
-
-      }
       
-   })
+       },
+       error: function(req, textStatus, errorThrown){alert('Error '+ textStatus);}
+     });
 
 };
-*/
+
 
 // ____________________________________________________________________________________
 function getAllNtds() {
@@ -428,30 +435,12 @@ function logout() {
 }
 
 
-// 
-// function downloadcsv(docObj)
-// {
-//   // $.ajax({
-//   //       type: 'GET',
-//   //       data: null,
-//   //       url: '_show/ntdcsvdata/' + docObj.value
-//   //       }
-//   //   );
-//   $.get('_show/ntdcsvdata/' + docObj.value, function(data){$('.result').html(data);});
-// }
-// 
-// function downloadjson(docObj)
-// {
-//   $.get('_show/ntdjsondata/' + docObj.value, function(data){return data;});
-// }
-
-/*
-// ____________________________________________________________________________________
+/// ____________________________________________________________________________________
 function enter_box(event) {    
  
-   if (event.keyCode == 13) {
+   if (event.keyCode == 13) {  //keycode 13 is the enter key
       
-      $( "#box-search" ).autocomplete("close");
+      //$( "#box-search" ).autocomplete("close");
       click_search();
       event.returnValue = false; // for IE
       if (event.preventDefault()) event.preventDefault(); 
@@ -460,5 +449,4 @@ function enter_box(event) {
 
    return false;     
         
-}  
-*/
+}
