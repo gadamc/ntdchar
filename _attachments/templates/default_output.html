@@ -17,11 +17,11 @@
          <td>${ntdname}</td>
       </tr>
 
-      <tr>
+<!--       <tr>
          <td class="category">Database Doc</td>
          <td class="item">ID</td>
          <td>${_id}</td>
-      </tr>
+      </tr> -->
 
    </table>
    </li>
@@ -56,11 +56,18 @@
             {{/if}}
          </td>
       </tr>
-      
+
+      <tr class="measurement-blank">
+	     <td> </td>
+         <td> </td>
+		 <td> </td>
+      </tr>
+
+
       <tr class="measurement-downloadCSV">
 	     <td class="item">Download</td>
          <td><a href = "_show/ntdcsvdata/${_id}">CSV</a></td>
-		 <td><a href = "../../${_id}">JSON</a></td>
+		 <td><a href = "_show/ntdjsondata/${_id}">JSON</a></td>
       </tr> 
 		
       {{if measurement.sambainfo }} 

@@ -53,18 +53,28 @@
          </select>
          <span class="istatus"></span>   
       </div>
-      
-      <div class="input-row">
-         <label class="input-label">TSV Raw Data</label>
-         <textarea id="icsvdata" name="icsvdata" placeholder="Copy and Past in raw Tab-Separated Data (default IgorPro output format). First row must be the name of the columns." cols="80" rows="20" class="input-textarea ui-widget-content ui-corner-all"></textarea>
-         <span class="istatus"></span>
+      <br><br>
+	   <div class="input-row">
+         <label class="input-label">Data Delimiter</label>
+         <select id="idatadelim" name="idatadelim" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+            <option value="\t">Tab Separated</option>
+            <option value=",">Comma Separated</option>
+            <option value=" ">Space Separated</option>
+         </select>
+         <span class="istatus"></span>   
       </div>
 
       <div class="input-row">
-         <label class="input-label">TSV Final Data</label>
-         <textarea id="icsvfinaldata" name="icsvfinaldata" placeholder="Copy and Past in final calculated Tab-Separated Data (default IgorPro output format). First row must be the name of the columns." cols="80" rows="20" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+         <label class="input-label">Raw Data</label>
+         <textarea id="icsvdata" name="icsvdata" placeholder="Copy and Paste in raw Tab-Separated Data (default IgorPro output format). First row must be the name of the columns." cols="80" rows="20" class="input-textarea ui-widget-content ui-corner-all"></textarea>
          <span class="istatus"></span>
       </div>
+
+      <!-- <div class="input-row">
+               <label class="input-label">TSV Final Data</label>
+               <textarea id="icsvfinaldata" name="icsvfinaldata" placeholder="Copy and Past in final calculated Tab-Separated Data (default IgorPro output format). First row must be the name of the columns." cols="80" rows="20" class="input-textarea ui-widget-content ui-corner-all"></textarea>
+               <span class="istatus"></span>
+            </div> -->
       
       <div class="input-row">
          <label class="input-label">Wire Type</label>

@@ -43,8 +43,8 @@ $(document).ready(function(){
             iref:      "required",                                                                       
             ientry:    "required",  
             ientrycon: "required email",
-            icsvdata:  "required",
-            icsvfinaldata: "required"
+            icsvdata:  "required"
+            //icsvfinaldata: "required"
          }, 
          	   	     
    	   messages: {
@@ -57,8 +57,8 @@ $(document).ready(function(){
             iref:      "***",  
             ientry:    "***",  
             ientrycon: "***",
-            icsvdata:  "***",
-            icsvfinaldata: "***"
+            icsvdata:  "***"
+            //icsvfinaldata: "***"
          },
          
 		   errorPlacement: function(error, element) {
@@ -76,10 +76,12 @@ $(document).ready(function(){
       getAllNtds(); 
    });
    
-
+   
    $( "#button-expand" ).button();   
    $( "#button-collapse" ).button();   
-
+   $( "#button-expand2" ).button();   
+   $( "#button-collapse2" ).button();
+    
    $( "#button-clear1" ).button();   
    $( "#button-clear2" ).button();
    $( "#button-submit" ).button();  
@@ -88,8 +90,37 @@ $(document).ready(function(){
    $( "#button-clear2_2" ).button();
    $( "#button-submit_2" ).button();
     
-   $( "#button-downloadcsv" ).button();   
-   $( "#button-downloadjson" ).button();
+   $( "#button-login" ).button();
+   $( "#button-logout").button();
+   
+   
+   $.couch.session({  //check to see if a user has already logged in. 
+     success: function(data) {
+       if(data.userCtx.name != null){
+         $("#loginname").hide();
+         $("#loginpassword").hide();
+         $("#button-login").hide();
+         $("#button-logout").show();
+       }
+       else{
+         $("#loginname").val("");
+         $("#loginpassword").val("");
+         $("#loginname").show();
+         $("#loginpassword").show();
+         $("#button-login").show();
+         $("#button-logout").hide();
+       }
+       
+       },
+       error: function(data){
+         $("#loginname").val("");
+          $("#loginpassword").val("");
+          $("#loginname").show();
+          $("#loginpassword").show();
+          $("#button-login").show();
+          $("#button-logout").hide();
+       }
+     });
      
    $( "#dialog-submit" ).dialog({ autoOpen: false, modal: true, resizable: false });   
    
@@ -120,17 +151,17 @@ function click_clear_warnings() {
 }
 
 // ____________________________________________________________________________________
-function parseTextData(textData)
+function parseTextData(textData, delimiter)
 {
   var outData = {};
-  var headers = textData[0].split("\t");
+  var headers = textData[0].split(delimiter);
   for (var h = 0; h < headers.length; h++){
     //console.log(headers[h]);
     outData[headers[h]] = new Array();
   }
   
   for(var i = 1; i < textData.length; i++){
-    aLine = textData[i].split("\t");
+    aLine = textData[i].split(delimiter);
     for (var j = 0; j < aLine.length; j++){
       var theVal = "";
       if (aLine[j] != ""){
@@ -163,10 +194,10 @@ function click_submit() {
 
        
       var iresult = $("#icsvdata").val().split("\n");
-      var theRawData = parseTextData(iresult);
+      var theRawData = parseTextData(iresult, $("#idatadelim").val() );
       
-      var ifinalresult = $("#icsvfinaldata").val().split("\n");
-      var theFinalData = parseTextData(ifinalresult);
+      //var ifinalresult = $("#icsvfinaldata").val().split("\n");
+      //var theFinalData = parseTextData(ifinalresult);
       
       // Build the overall JSON
             
@@ -187,9 +218,8 @@ function click_submit() {
                 "wiretype":  $("#iwiretype").val(),
                 "datatype":  $("#idatatype").val(),
                 "data" : {
-                    "raw":     theRawData,
-                    "final":   theFinalData,
-                  },
+                    "raw":     theRawData
+                },
                 "sambainfo" : {
                   "run" : $("#isambarun").val(),
                   "detector" : $("#idet").val(),
@@ -356,6 +386,48 @@ function getAllNtds() {
             
     });
 };
+
+//______________________________________________________________________________________
+function login() {
+
+  $.couch.login({
+    name:  $("#loginname").val(), 
+    password: $("#loginpassword").val(),
+    success: function(data) {
+        $("#loginname").hide(1000);
+        $("#loginpassword").hide(1000);
+        $("#button-login").hide(1000);
+        $("#button-logout").show(1000);
+      },
+    error : function(data) {
+        alert("Incorrect login credentials. Please try again.");
+     }
+    });
+  
+}
+
+//______________________________________________________________________________________
+function logout() {
+
+  $("#loginname").val("");
+  $("#loginpassword").val("");
+  $("#loginname").show(1000);
+  $("#loginpassword").show(1000);
+  $("#button-login").show(1000);
+  $("#button-logout").hide(1000);
+    
+  $.couch.logout({
+    success: function(data) {
+       console.log('couch log out');
+      },
+    error : function(data) {
+       alert("ZOMG! Couldn't log out. Call an admin, now! ")
+     }
+    });
+  
+}
+
+
 // 
 // function downloadcsv(docObj)
 // {

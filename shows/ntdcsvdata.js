@@ -47,15 +47,22 @@ function(doc, req) {
 
         return text;
       }
-
-      if(typeof(doc.measurement.data.raw) == "object"){
-        theBody += printData(doc.measurement.data.raw);
+      if(doc.measurement.data.raw !== null){
+        if(typeof(doc.measurement.data.raw) == "object"){
+          theBody += printData(doc.measurement.data.raw);
+        }
       }
 
-      if(typeof(doc.measurement.data.final) == "object"){
-        theBody += printData(doc.measurement.data.final);
+      if(doc.measurement.data.final !== null){
+        if(typeof(doc.measurement.data.final) == "object"){
+          theBody += printData(doc.measurement.data.final);
+        }
       }      
-  
+    
+      if(doc.measurement.data.raw == null && typeof(doc.measurement.data) == "object"){
+        theBody += printData(doc.measurement.data);
+      }
+      
       var attName = "attachment;filename=ntd "+doc.ntdname+".csv"
 
       //return theBody;

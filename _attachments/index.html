@@ -32,6 +32,7 @@
 
     <ul>
       <li><a href="#tab-allntds">All NTDs</a></li>
+	  <li><a href="#tab-submit">Search</a></li>
       <li><a href="#tab-submit">Submit</a></li>
     </ul>
 
@@ -53,14 +54,28 @@
 
     </div>
       
-      
-    <div id="tab-submit">
+    <div id="tab-search">
 
-      <div>
-        <button id="button-submit" onclick="javascript:click_submit();">Submit</button>     
+	   <div>
+       <input id="box-search" placeholder="e.g. 38-2" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
+       <button id="button-search" onclick="javascript:click_search();">Search</button>
+	      <button id="button-expand2"  onclick="javascript:click_expand();">Expand All</button> 
+          <button id="button-collapse2"  onclick="javascript:click_collapse();">Collapse All</button>
+	   </div>
+			
+	   <div id="searchntdrecords" class="content"></div>
+	
+	</div>
+  
+    <div id="tab-submit">
+        <input id="loginname" type="text" class="ui-widget ui-widget-content ui-corner-all"/>
+        <input id="loginpassword" type="password"  class="ui-widget ui-widget-content ui-corner-all"/>
+        <button id="button-login"  onclick="javascript:login();" >Login</button>
+        <button id="button-logout" onclick="javascript:logout();" align="right">Logout</button>
+     	<button id="button-submit" onclick="javascript:click_submit();">Submit</button>     
         <button id="button-clear1" onclick="javascript:click_clear_warnings();">Clear warnings</button>
         <button id="button-clear2" onclick="javascript:click_clear_all();">Clear form</button>
-      </div>
+     
 
       <div id="input-form"  class="content"></div>
 
