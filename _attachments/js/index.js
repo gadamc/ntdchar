@@ -1,5 +1,8 @@
 
 var db = $.couch.db('ntdchar');  //how do we automate this??? 
+var dbname = window.location.pathname.split("/")[1];
+var appName = window.location.pathname.split("/")[3];
+var db = $.couch.db(dbname);
 
 //dear newbie, $ == jQuery, which is a reference to an instace of a jQuery object. You could replace
 //every $ with 'jQuery' and you'd get the same functionality. 
@@ -320,7 +323,7 @@ function searchResults(val) {
    //    var search_url = "";
    //    
    //    if(version[0] >= 1 && version[1] >= 1) {
-     search_url  = $.couch.urlPrefix+'/_fti/local/ntdchar/_design/app/fullsearch?q=' + val; 
+     search_url  = $.couch.urlPrefix + '/_fti/local/' + dbname + '/_design/' + appName + '/fullsearch?q=' + val; 
    // }
    //    else{
    //      search_url  = $.couch.urlPrefix+'/ntdchar/_fti/_design/app/fullsearch?q=' + val;

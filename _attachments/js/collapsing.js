@@ -1,6 +1,9 @@
 CLOSED_IMAGE ='images/plus.png';
 OPEN_IMAGE   ='images/minus.png';
 
+//these functions make jquery calls, so make sure this file is included after the jquery include 
+//in the html file
+
 // ____________________________________________________________________________________
 function makeCollapsible(listElement){
    
@@ -25,6 +28,7 @@ function makeCollapsible(listElement){
          while ( grandchild != null ) {
             if ( grandchild.tagName == 'OL' || grandchild.tagName == 'UL' ) {
                grandchild.style.display = 'none';
+               
                list.push(grandchild);
             }
             grandchild = grandchild.nextSibling;
@@ -58,23 +62,15 @@ function createToggleFunction(toggleElement, sublistElements) {
       
       // toggle status of toggle gadget
       if ( toggleElement.getAttribute('class') == 'collapsibleClosed' ) {
-         
          toggleElement.setAttribute('class','collapsibleOpen');
          toggleElement.setAttribute('src',OPEN_IMAGE);
-         
       } else {
-         
          toggleElement.setAttribute('class','collapsibleClosed');
          toggleElement.setAttribute('src',CLOSED_IMAGE);
-         
       }
-      
       // toggle display of sublists
       for ( var i = 0 ; i < sublistElements.length ; i++ ) {
-         
-         sublistElements[i].style.display=
-         (sublistElements[i].style.display=='block')?'none':'block';
-         
+         $(sublistElements[i]).toggle(300);
       }
       
    }
