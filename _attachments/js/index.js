@@ -361,8 +361,8 @@ function searchResults(val) {
       
        },
        error: function(req, textStatus, errorThrown){
-         $('#button-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
-         $('#box-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
+         $('#button-search').removeAttr("disabled").removeClass( 'ui-state-disabled' );
+         $('#box-search').removeAttr("disabled").removeClass( 'ui-state-disabled' );
          alert('Error '+ textStatus);
          }
      });
