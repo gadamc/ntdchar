@@ -290,7 +290,6 @@ function click_search() {
       return false;
    }    
    
-   $('#button-search').attr("disabled", "disabled").addClass( 'ui-state-disabled' );      
    searchResults($("#box-search").val()); 
    
    return true;
@@ -326,10 +325,14 @@ function searchResults(val) {
 
    $("#searchntdrecords").empty();
    
+   $('#button-search').attr("disabled", "disabled").addClass( 'ui-state-disabled' );
+   $('#box-search').attr("disabled", "disabled").addClass( 'ui-state-disabled' );
+   
    $.ajax({ 
         
       url: search_url,
       dataType: 'json', 
+      async: false,
       success: function(data) {
         
          if ( data.total_rows > 0 ) {
@@ -351,20 +354,24 @@ function searchResults(val) {
               
            }
            
+           
            $("#searchntdrecords").append('</ul>');
            makeCollapsible(document.getElementById('search_output'));
            $(".measurement-metadata").show();
 
-           $('#button-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
-           $('#box-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
+         }
+         else {
+           $("#searchntdrecords").html("<h3>no results found</h3>");
          }
       
        },
        error: function(req, textStatus, errorThrown){
-         $('#button-search').removeAttr("disabled").removeClass( 'ui-state-disabled' );
-         $('#box-search').removeAttr("disabled").removeClass( 'ui-state-disabled' );
          alert('Error '+ textStatus);
-         }
+         },
+       complete: function(){
+          $('#button-search').removeAttr("disabled").removeClass( 'ui-state-disabled' );
+          $('#box-search').removeAttr("disabled").removeClass( 'ui-state-disabled' );
+        }
      });
 
 };
@@ -449,7 +456,7 @@ function enter_box(event) {
    if (event.keyCode == 13) {  //keycode 13 is the enter key
       
       //$( "#box-search" ).autocomplete("close");
-      $('#box-search').attr("disabled", "disabled").addClass( 'ui-state-disabled' ); 
+       
       click_search();
       event.returnValue = false; // for IE
       if (event.preventDefault()) event.preventDefault(); 
