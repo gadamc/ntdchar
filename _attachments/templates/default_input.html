@@ -24,10 +24,10 @@
       </div>    
       <div class="input-row">
          <label class="input-label">Location</label>
-         <select id="iinst" name="iinst" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+         <select id="iinst" name="iinst" class="iselect input-select ui-widget-content ui-corner-all" style="width:150px;height:20px">
             <option value="Saclay">Saclay</option>
              <option value="Orsay">Orsay</option>
-             <option value="LSM Underground">LSM Underground</option>
+             <option value="LSM Underground" selected="selected">LSM Underground</option>
              <option value="Lyon">Lyon</option>
              <option value="Tuebingen">Tuebingen</option>
              <option value="Oxford">Oxford</option>
@@ -47,18 +47,27 @@
       </div>
       <div class="input-row">
          <label class="input-label">Data Type</label>
-         <select id="idatatype" name="idatatype" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
-            <option value="V(I)">V(I)</option>
+         <select id="idatatype" name="idatatype" class="iselect input-select ui-widget-content ui-corner-all" onchange="javascript:showRTnotBlock()" style="width:100px;height:20px">
+            <option value="V(I)" selected="selected">V(I)</option>
             <option value="R(T)">R(T)</option>
          </select>
          <span class="istatus"></span>   
       </div>
-      <br><br>
+      
+      <div class="RTnot-block" style="display:none">
+             <label class="input-label RTnot-block">Constants</label>
+             <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>         
+             <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>
+             <span class="istatus"></span>
+      </div>
+      
+      
+      <br>
 	   <div class="input-row">
          <label class="input-label">Data Delimiter</label>
          <select id="idatadelim" name="idatadelim" class="iselect input-select ui-widget-content ui-corner-all" style="width:150px;height:25px">
             <option value="\t">Tab Separated</option>
-            <option value=",">Comma Separated</option>
+            <option value="," selected="selected">Comma Separated</option>
             <option value=" ">Space Separated</option>
          </select>
          <span class="istatus"></span>   
@@ -76,14 +85,14 @@
                <span class="istatus"></span>
             </div> -->
       
-      <div class="input-row">
-         <label class="input-label">Wire Type</label>
-         <select id="iwiretype" name="iwiretype" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
-            <option value="Al">Al</option>
-            <option value="Au">Au</option>
-         </select>
-         <span class="istatus"></span>   
-      </div>      
+      <!-- <div class="input-row">
+               <label class="input-label">Wire Type</label>
+               <select id="iwiretype" name="iwiretype" class="iselect input-select ui-widget-content ui-corner-all" style="width:100px;height:20px">
+                  <option value="Al" selected="selected">Al</option>
+                  <option value="Au">Au</option>
+               </select>
+               <span class="istatus"></span>   
+            </div>   -->    
    
      <br/>
     <fieldset class="ui-widget ui-widget-content ui-corner-all entry">

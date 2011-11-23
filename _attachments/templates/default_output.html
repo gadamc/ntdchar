@@ -20,7 +20,7 @@
         <tr>
           <td ></td>
           <td class="item">DB Doc ID</td>
-          <td>${_id} <a href = "../../${_id}"> raw</a> &nbsp; <a href = "/_utils/document.html?ntdchar/${_id}">Futon</a></td>
+          <td>${_id} <a href = "../../${_id}"> raw</a>&nbsp;<a href = "/_utils/document.html?ntdchar/${_id}">Futon</a></td>
         </tr>
 
 </table>
@@ -73,6 +73,21 @@
     </tr>
     {{/if}}
 
+    {{if measurement.r0 }}
+    <tr class="measurement-metadata">
+      <td></td>
+      <td class="item">R<sub>0</sub> [&Omega;]</td>
+      <td>${measurement.r0}</td>
+    </tr>
+    {{/if}}
+    
+    {{if measurement.t0 }}
+    <tr class="measurement-metadata">
+      <td></td>
+      <td class="item">T<sub>0</sub> [K]</td>
+      <td>${measurement.t0}</td>
+    </tr>
+    {{/if}}
 
     <tr class="measurement-downloadCSV">
       <td class="item">Download</td>

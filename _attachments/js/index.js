@@ -24,53 +24,7 @@ $(document).ready(function(){
    $( "input, textarea" ).placehold( "something-temporary" );
 
 	// Template - input      
-   $.get('templates/default_input.html', function(tmp) {               
-
-      $.template("input_template", tmp);   
-      $.tmpl("input_template", null).appendTo("#input-form");
-
-      $(function() {
-		   $( "#idate" ).datepicker();
-	   }); 
-
-      // Form validation
-	    	
-	   var validator = $("#input").validate({
-	     
-         rules: {
-            iname:     "required", 
-            itech:     "required", 
-            iinst:     "required",
-            idate:     "required date", 
-            imdesc:    "required", 
-            iref:      "required",                                                                       
-            ientry:    "required",  
-            ientrycon: "required email",
-            icsvdata:  "required"
-            //icsvfinaldata: "required"
-         }, 
-         	   	     
-   	   messages: {
-            iname:     "***", 
-            isrc:      "***",
-            itech:     "***", 
-            iinst:     "***",
-            idate:     "***", 
-            imdesc:    "***",
-            iref:      "***",  
-            ientry:    "***",  
-            ientrycon: "***",
-            icsvdata:  "***"
-            //icsvfinaldata: "***"
-         },
-         
-		   errorPlacement: function(error, element) {
-            error.appendTo(element.next('.istatus'));
-		   }      
-	     
-	   }); 	
-	    	
-   });
+   buildTemplateInput();
    
    // Template - output
    $.get('templates/default_output.html', function(tmp) {               
@@ -132,7 +86,71 @@ $(document).ready(function(){
 
    
 });
+//__________________________________
+function buildTemplateInput()
+{
+  $.get('templates/default_input.html', function(tmp) {               
 
+      $.template("input_template", tmp);   
+      $.tmpl("input_template", null).appendTo("#input-form");
+
+      $(function() {
+		   $( "#idate" ).datepicker();
+	   }); 
+
+      // Form validation
+	   buildFormValidation(); 	
+	   showRTnotBlock();
+	    	
+   });
+   
+}
+//___________________________________
+function buildFormValidation()
+{
+  
+  
+  var validator = $("#input").validate({
+
+       rules: {
+          iname:     "required", 
+          itech:     "required", 
+          iinst:     "required",
+          idate:     "required date", 
+          imdesc:    "required", 
+          iref:      "required",                                                                       
+          ientry:    "required",  
+          ientrycon: "required email",
+          icsvdata:  "required"//,
+          //irnot:     "required",
+          //itnot:     "required"
+          //icsvfinaldata: "required"
+       }, 
+
+ 	   messages: {
+          iname:     "***", 
+          isrc:      "***",
+          itech:     "***", 
+          iinst:     "***",
+          idate:     "***", 
+          imdesc:    "***",
+          iref:      "***",  
+          ientry:    "***",  
+          ientrycon: "***",
+          icsvdata:  "***",
+          irnot:     "***",
+          itnot:     "***"
+          //icsvfinaldata: "***"
+       },
+
+	   errorPlacement: function(error, element) {
+          error.appendTo(element.next('.istatus'));
+	   }      
+
+   });
+   
+   
+}
 
 // ____________________________________________________________________________________
 function click_clear_all() {
@@ -182,6 +200,8 @@ function click_submit() {
 
    $("#input").validate().form();
  
+   //$('input[type=submit]', this).attr('disabled', 'disabled');
+ 
    if ( $("#input").validate().numberOfInvalids() == 0 ) {           
 
       // Parse the date
@@ -195,6 +215,8 @@ function click_submit() {
       var iresult = $("#icsvdata").val().split("\n");
       var theRawData = parseTextData(iresult, $("#idatadelim").val() );
       
+      var r0 = parseFloat($("#irnot").val());
+      var t0 = parseFloat($("#itnot").val());
       // Build the overall JSON
             
       var output_json = 
@@ -211,8 +233,10 @@ function click_submit() {
                     "year":    iyear
                 },
                 "description":  $("#imdesc").val(),
-                "wiretype":  $("#iwiretype").val(),
+                //"wiretype":  $("#iwiretype").val(),
                 "datatype":  $("#idatatype").val(),
+                "r0":  r0,
+                "t0":  t0,
                 "data" : {
                     "raw":     theRawData
                 },
@@ -246,41 +270,14 @@ function click_submit() {
 }
 
 
-// ____________________________________________________________________________________
-function click_detail() {
-
-   if (detailed) {
-      
-      $(".measurement-metadata").hide();
-      $("#button-detail").val("More detail");      
-      detailed = false;
-
-   } else {
- 
-      $(".measurement-metadata").show();
-      $("#button-detail").val("Less detail");
-      detailed = true;
-
-   };   
-
-}
 //______________________________________________________________________________________
 function click_collapse() {
-  
   $("img[class='collapsibleOpen']").click();
-  //$("#button-expand").val("Expand");      
-  //collapsed = true;
-  
 }
 // ____________________________________________________________________________________
 function click_expand() {
-
   $("img[class='collapsibleClosed']").click();
-  //$("#button-expand").val("Collapse");
-  //collapsed = false;
-
 }
-
 
 // ____________________________________________________________________________________
 function click_search() {
@@ -292,14 +289,9 @@ function click_search() {
       $("div#materials").empty(); 
       return false;
    }    
-         
-   searchResults($("#box-search").val()); 
-     
-   //collapsed = true;
-   //$("#button-expand").val("Expand");
    
-   //detailed = false;
-   //$("#button-detail").val("More detail");
+   $('#button-search').attr("disabled", "disabled").addClass( 'ui-state-disabled' );      
+   searchResults($("#box-search").val()); 
    
    return true;
 
@@ -339,7 +331,7 @@ function searchResults(val) {
       url: search_url,
       dataType: 'json', 
       success: function(data) {
-
+        
          if ( data.total_rows > 0 ) {
            
            $("#searchntdrecords").append('<ul id="search_output">');
@@ -363,10 +355,16 @@ function searchResults(val) {
            makeCollapsible(document.getElementById('search_output'));
            $(".measurement-metadata").show();
 
+           $('#button-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
+           $('#box-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
          }
       
        },
-       error: function(req, textStatus, errorThrown){alert('Error '+ textStatus);}
+       error: function(req, textStatus, errorThrown){
+         $('#button-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
+         $('#box-search').attr("disabled", "").removeClass( 'ui-state-disabled' );
+         alert('Error '+ textStatus);
+         }
      });
 
 };
@@ -451,6 +449,7 @@ function enter_box(event) {
    if (event.keyCode == 13) {  //keycode 13 is the enter key
       
       //$( "#box-search" ).autocomplete("close");
+      $('#box-search').attr("disabled", "disabled").addClass( 'ui-state-disabled' ); 
       click_search();
       event.returnValue = false; // for IE
       if (event.preventDefault()) event.preventDefault(); 
@@ -475,3 +474,22 @@ function enter_password(event) {
    return false;     
         
 }
+
+//_____________________________________________________________________________________
+function showRTnotBlock()
+{
+  //console.log( $("#idatatype").val() );
+  //console.log( typeof($("div.RTnot-block")));
+  
+  if ( $("#idatatype").val() == "R(T)" ){
+    $("div.RTnot-block").show(200);
+    $("#irnot").rules("add", "required number");
+    $("#itnot").rules("add", "required number");
+  }
+  else{
+    $("div.RTnot-block").hide(200);
+    $("#irnot").rules("remove", "required");
+    $("#itnot").rules("remove", "required");
+  }
+}
+
