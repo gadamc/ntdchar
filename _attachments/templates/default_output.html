@@ -88,6 +88,30 @@
       <td>${measurement.t0}</td>
     </tr>
     {{/if}}
+    
+    {{if measurement.readoutwires }} 
+    <tr class="measurement-metadata">
+      <td class="category">Readout Wires</td>
+      <td></td><td></td>
+    </tr>
+
+    {{if measurement.readoutwires.numbers}} 
+    <tr class="measurement-metadata">
+      <td></td>
+      <td class="item">Number</td>
+      <td>${measurement.readoutwires.numbers}</td>
+    </tr>
+    {{/if}}       
+
+    {{if measurement.readoutwires.impedance}} 
+    <tr class="measurement-metadata">
+      <td></td>
+      <td class="item">Impedance [&Omega;]</td>
+      <td>${measurement.readoutwires.impedance}</td>
+    </tr>
+    {{/if}}
+    
+    {{/if}}  
 
     <tr class="measurement-downloadCSV">
       <td class="item">Download</td>

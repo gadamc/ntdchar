@@ -101,7 +101,7 @@ function buildTemplateInput()
       // Form validation
 	   buildFormValidation(); 	
 	   showRTnotBlock();
-	    	
+	   showWireImpedanceBlock();  	
    });
    
 }
@@ -139,7 +139,8 @@ function buildFormValidation()
           ientrycon: "***",
           icsvdata:  "***",
           irnot:     "***",
-          itnot:     "***"
+          itnot:     "***",
+          ireadoutwireimpedance: "***"
           //icsvfinaldata: "***"
        },
 
@@ -217,6 +218,9 @@ function click_submit() {
       
       var r0 = parseFloat($("#irnot").val());
       var t0 = parseFloat($("#itnot").val());
+      var readoutRes = parseFloat($("#ireadoutwireimpedance").val());
+      var numReadoutWires = parseInt($("#ireadoutwires").val());
+      
       // Build the overall JSON
             
       var output_json = 
@@ -237,6 +241,10 @@ function click_submit() {
                 "datatype":  $("#idatatype").val(),
                 "r0":  r0,
                 "t0":  t0,
+                "readoutwires" : {
+                  "number": numReadoutWires,
+                  "impedance": readoutRes
+                },
                 "data" : {
                     "raw":     theRawData
                 },
@@ -499,4 +507,21 @@ function showRTnotBlock()
     $("#itnot").rules("remove", "required");
   }
 }
+
+//_____________________________________________________________________________________
+function showWireImpedanceBlock()
+{
+  //console.log( $("#idatatype").val() );
+  //console.log( typeof($("div.RTnot-block")));
+  
+  if ( $("#ireadoutwires").val() == "2" ){
+    $("div.ReadoutWireImpedance-block").show(200);
+    $("#ireadoutwireimpedance").rules("add", "required number");
+  }
+  else{
+    $("div.ReadoutWireImpedance-block").hide(200);
+    $("#ireadoutwireimpedance").rules("remove", "required");
+  }
+}
+
 
