@@ -57,10 +57,18 @@
       <div class="RTnot-block" style="display:none">
              <label class="input-label RTnot-block">Constants</label>
              <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>         
+             <!-- <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/> -->
+             <span class="istatus"></span>
+      </div>
+      <br class="RTnot-break" style="display:none">
+      <div class="RTnot-block" style="display:none">
+             <label class="input-label RTnot-block"></label>
+             <!-- <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>    -->      
              <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>
              <span class="istatus"></span>
       </div>
-      <br>
+      <br class="RTnot-break" style="display:none">
+
       <div class="input-row">
          <label class="input-label">Num. Readout Wires</label>
          <select id="ireadoutwires" name="ireadoutwires" class="iselect input-select ui-widget-content ui-corner-all" onchange="javascript:showWireImpedanceBlock();" style="width:100px;height:20px">
@@ -75,8 +83,8 @@
              <input placeholder="Impedance (Ohms)" id="ireadoutwireimpedance" name="ireadoutwireimpedance" class="input-box ui-widget ui-widget-content ui-corner-all ReadoutWireImpedance-block" style="width:130px"/>         
               <span class="istatus"></span>
       </div>
+      <br class="ReadoutWireImpedance-break" style="display:none">
       
-      <br>
 	   <div class="input-row">
          <label class="input-label">Data Delimiter</label>
          <select id="idatadelim" name="idatadelim" class="iselect input-select ui-widget-content ui-corner-all" style="width:150px;height:25px">

@@ -500,11 +500,13 @@ function showRTnotBlock()
     $("div.RTnot-block").show(200);
     $("#irnot").rules("add", "required number");
     $("#itnot").rules("add", "required number");
+    $(".RTnot-break").css("display", "block");
   }
   else{
     $("div.RTnot-block").hide(200);
     $("#irnot").rules("remove", "required");
     $("#itnot").rules("remove", "required");
+    $(".RTnot-break").css("display", "none");
   }
 }
 
@@ -517,10 +519,12 @@ function showWireImpedanceBlock()
   if ( $("#ireadoutwires").val() == "2" ){
     $("div.ReadoutWireImpedance-block").show(200);
     $("#ireadoutwireimpedance").rules("add", "required number");
+    $(".ReadoutWireImpedance-break").css("display", "block");
   }
   else{
     $("div.ReadoutWireImpedance-block").hide(200);
     $("#ireadoutwireimpedance").rules("remove", "required");
+    $(".ReadoutWireImpedance-break").css("display", "none");
   }
 }
 
