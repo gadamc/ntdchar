@@ -100,7 +100,7 @@ function buildTemplateInput()
 
       // Form validation
 	   buildFormValidation(); 	
-	   showRTnotBlock();
+	   showDataTypeSubBlock();
 	   showWireImpedanceBlock();  	
    });
    
@@ -140,6 +140,7 @@ function buildFormValidation()
           icsvdata:  "***",
           irnot:     "***",
           itnot:     "***",
+          ivitemp:   "***",
           ireadoutwireimpedance: "***"
           //icsvfinaldata: "***"
        },
@@ -220,6 +221,7 @@ function click_submit() {
       var t0 = parseFloat($("#itnot").val());
       var readoutRes = parseFloat($("#ireadoutwireimpedance").val());
       var numReadoutWires = parseInt($("#ireadoutwires").val());
+      var ViT = parseFloat($("#ivitemp").val())
       
       // Build the overall JSON
             
@@ -239,8 +241,6 @@ function click_submit() {
                 "description":  $("#imdesc").val(),
                 //"wiretype":  $("#iwiretype").val(),
                 "datatype":  $("#idatatype").val(),
-                "r0":  r0,
-                "t0":  t0,
                 "readoutwires" : {
                   "number": numReadoutWires,
                   "impedance": readoutRes
@@ -263,6 +263,14 @@ function click_submit() {
             }
          };
       //console.log(output_json);
+      
+      if( $("#idatatype").val() == "R(T)"){
+        output_json["r0"] =  r0;
+        output_json["t0"] =  t0;
+      }
+      else{
+        output_json["temperature"] =  ViT;
+      }
       
       db.saveDoc(
          output_json,
@@ -491,7 +499,7 @@ function enter_password(event) {
 }
 
 //_____________________________________________________________________________________
-function showRTnotBlock()
+function showDataTypeSubBlock()
 {
   //console.log( $("#idatatype").val() );
   //console.log( typeof($("div.RTnot-block")));
@@ -501,12 +509,22 @@ function showRTnotBlock()
     $("#irnot").rules("add", "required number");
     $("#itnot").rules("add", "required number");
     $(".RTnot-break").css("display", "block");
+    
+    $("div.VI-block").hide(200);
+    $("#ivitemp").rules("remove", "required");
+    $(".VI-break").css("display", "none");
+    
   }
   else{
     $("div.RTnot-block").hide(200);
     $("#irnot").rules("remove", "required");
     $("#itnot").rules("remove", "required");
     $(".RTnot-break").css("display", "none");
+    
+    $("div.VI-block").show(200);
+    $("#ivitemp").rules("add", "required number");
+    $(".VI-break").css("display", "block");
+    
   }
 }
 

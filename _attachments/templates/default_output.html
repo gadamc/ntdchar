@@ -89,6 +89,14 @@
     </tr>
     {{/if}}
     
+    {{if measurement.temperature }}
+    <tr class="measurement-metadata">
+      <td></td>
+      <td class="item">Temperature [K]</td>
+      <td>${measurement.temperature}</td>
+    </tr>
+    {{/if}}
+    
     {{if measurement.readoutwires }} 
     <tr class="measurement-metadata">
       <td class="category">Readout Wires</td>

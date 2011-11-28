@@ -47,27 +47,37 @@
       </div>
       <div class="input-row">
          <label class="input-label">Data Type</label>
-         <select id="idatatype" name="idatatype" class="iselect input-select ui-widget-content ui-corner-all" onchange="javascript:showRTnotBlock();" style="width:100px;height:20px">
+         <select id="idatatype" name="idatatype" class="iselect input-select ui-widget-content ui-corner-all" onchange="javascript:showDataTypeSubBlock();" style="width:100px;height:20px">
             <option value="V(I)" selected="selected">V(I)</option>
             <option value="R(T)">R(T)</option>
          </select>
          <span class="istatus"></span>   
       </div>
       
-      <div class="RTnot-block" style="display:none">
-             <label class="input-label RTnot-block">Constants</label>
-             <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>         
-             <!-- <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/> -->
-             <span class="istatus"></span>
-      </div>
-      <br class="RTnot-break" style="display:none">
-      <div class="RTnot-block" style="display:none">
-             <label class="input-label RTnot-block"></label>
-             <!-- <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>    -->      
-             <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>
-             <span class="istatus"></span>
-      </div>
-      <br class="RTnot-break" style="display:none">
+       <div class="RTnot-block" style="display:none">
+               <label class="input-label RTnot-block">Constants</label>
+               <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>         
+               <!-- <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/> -->
+               <span class="istatus"></span>
+        </div>
+        <br class="RTnot-break" style="display:none">
+        <div class="RTnot-block" style="display:none">
+               <label class="input-label RTnot-block"></label>
+               <!-- <input placeholder="Ro (Ohms)" id="irnot" name="irnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>    -->      
+               <input placeholder="To (Kelvin)" id="itnot" name="itnot" class="input-box ui-widget ui-widget-content ui-corner-all RTnot-block" style="width:100px"/>
+               <span class="istatus"></span>
+        </div>
+        <br class="RTnot-break" style="display:none">
+        
+        
+         <div class="VI-block" style="display:none">
+                 <label class="input-label VI-block">Constants</label>     
+                 <input placeholder="Temperature (Kelvin)" id="ivitemp" name="ivitemp" class="input-box ui-widget ui-widget-content ui-corner-all VI-block" style="width:125px"/>
+                 <span class="istatus"></span>
+          </div>
+          <br class="VI-break" style="display:none">
+          
+          
 
       <div class="input-row">
          <label class="input-label">Num. Readout Wires</label>
