@@ -331,6 +331,10 @@ function searchResults(val) {
    //    
    //    if(version[0] >= 1 && version[1] >= 1) {
      search_url  = $.couch.urlPrefix + '/_fti/local/' + dbname + '/_design/' + appName + '/fullsearch?q=' + val; 
+     
+     if (window.location.host.split(".")[1] == "cloudant"){
+       search_url  = window.location.protocol + '//' + window.location.host + '/' + dbname + '/_search?q=' + val; 
+     }
    // }
    //    else{
    //      search_url  = $.couch.urlPrefix+'/ntdchar/_fti/_design/app/fullsearch?q=' + val;
