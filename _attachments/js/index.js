@@ -14,7 +14,33 @@ var collapsed = true;
 $(document).ready(function(){
 
    // Tabs
-   $('#tabs').tabs();
+   //$('#tabs').tabs();
+   // $('#mytab a').click(function (e) {
+   //      e.preventDefault();
+   //      $(this).tab('show');
+   //    })
+   
+   // $('.nav-tab').on('show', function (e) {
+   //      e.target // activated tab
+   //      e.relatedTarget // previous tab
+   //    })
+   
+  //fill in the nav bar at the top of the page
+  //using info in the webinterface database
+  $.couch.db("webinterface").openDoc("navbar", {
+    success: function(data) {
+      console.log(data);
+      var items = [];
+
+      for (var link in data['list']){
+        console.log(link + data['list'][link]);
+        items.push('<li ><a href="' + link + '">' + data['list'][link] + '</a></li>');
+      }
+      console.log(items);
+      $('#navbarList').append( items.join('') );
+
+    }
+  });
 
    // Menu bars            
    $( "input:submit", ".menu-bar" ).button();

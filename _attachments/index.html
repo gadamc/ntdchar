@@ -8,8 +8,188 @@
   <title>NTD Characteristics</title>
   <!-- <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"> -->
   <link type="text/css" href="css/bluesmooth/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+  <link rel="stylesheet" href="css/bootstrap.min.css">    
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+  <style type="text/css">
+  /* Override some defaults */
+  html, body {
+    background-color: #eee;
+  }
+  body {
+    padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    padding-left: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+  }
+  .container > footer p {
+    text-align: center; /* center align it with the container */
+  }
+  
 
-  <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+  /* The white background content wrapper */
+  .content {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+    -webkit-border-radius: 0 0 6px 6px;
+       -moz-border-radius: 0 0 6px 6px;
+            border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+
+  /* Page header tweaks */
+  .page-header {
+    background-color: #f5f5f5;
+    padding: 20px 20px 10px;
+    margin: -20px -20px 20px;
+  }
+
+  /* Give a quick and non-cross-browser friendly divider */
+  .span4 {
+    margin-left: 0;
+    padding-left: 20px;
+    min-height:15px;
+    height:20px
+  }
+  
+  .span2 {
+    margin-left: 0;
+    padding-left: 20px;
+    min-height:15px;
+    height:20px;
+  }
+  
+  .span3 {
+    margin-left: 0;
+    padding-left: 20px;
+    min-height:15px;
+    height:20px;
+  }
+  
+  .span5 {
+    margin-left: 0;
+    padding-left: 20px;
+    min-height:15px;
+    height:20px;
+  }
+  
+  .span6 {
+    margin-left: 0;
+    padding-left: 20px;
+    min-height:15px;
+    height:20px;
+  }
+
+  .span8 {
+    margin-left: 0;
+    padding-left: 20px;
+    min-height:15px;
+    height:20px;
+  }
+  
+  .topbar .btn {
+    border: 0;
+  }
+
+</style>
+
+  
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>	
+  
+  
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="#">Edelweiss</a>
+        <ul class="nav" id="navbarList">
+            <!--now loaded by javascript-->            
+            <!-- <li ><a href="/datadb/_design/app/index.html">Data Status</a></li>
+            <li ><a href="/automat/_design/cryo_2/index.html">Cryo Monitor</a></li>
+            <li ><a href="/automat/_design/cryo_2/current.html">Cryo Status</a></li>
+            <li ><a href="/muonhv/_design/app/index.html">Muon Veto HV Monitor</a></li>
+            <li ><a href="/radon/_design/app/index.html">Radon Monitor</a></li>
+            <li ><a href="/ntdchar/_design/app/index.html">NTD Characteristics</a></li> -->
+          </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="content">
+      <div class="page-header">
+        <!-- <h1>Samba Status<small>  The most recent Samba DAQ information</small></h1> -->
+        <h2>NTD Characteristics</h2><small>work in progress -- bootstrap hacked into a pure jquery page...</small>
+      </div>
+  
+      <div class="container">
+        <div id="tabbable">
+
+          <ul class="nav nav-tabs" id="mytab">
+            <li class="active" onclick="javascript:getAllNtds();" ><a href="#tab-allntds" data-toggle="tab">All NTDs</a></li>
+	          <li><a href="#tab-search" data-toggle="tab">Search</a></li>
+            <li><a href="#tab-submit" data-toggle="tab">Submit</a></li>
+          </ul>
+
+          <div class="tab-content" >
+            <div class="active tab-pane" id="tab-allntds">
+
+              <div>
+                  <button id="button-expand"  onclick="javascript:click_expand();">Expand All</button> 
+                  <button id="button-collapse"  onclick="javascript:click_collapse();">Collapse All</button> 
+              </div>
+
+              <div id="allntdrecords" class="content"></div>
+
+            </div>
+
+            <div class="tab-pane" id="tab-search">
+              <div>
+               <input id="box-search" placeholder="e.g. 38-2" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
+               <button id="button-search" onclick="javascript:click_search();">Search</button>
+        	     <button id="button-expand2"  onclick="javascript:click_expand();">Expand All</button> 
+               <button id="button-collapse2"  onclick="javascript:click_collapse();">Collapse All</button>
+        		   <a href="http://lucene.apache.org/java/3_4_0/queryparsersyntax.html">(click here for query syntax)</a>
+        	    </div>
+
+        	    <div id="searchntdrecords" class="content"></div>
+
+        	  </div>
+
+            <div class="tab-pane" id="tab-submit">
+                <input id="loginname" type="text" class="ui-widget ui-widget-content ui-corner-all"/>
+                <input id="loginpassword" type="password"  onkeydown="javascript:enter_password(event);" class="ui-widget ui-widget-content ui-corner-all"/>
+                <button id="button-login" onclick="javascript:login();" >Login</button>
+                <button id="button-logout"  onclick="javascript:logout();" align="right">Logout</button>
+             	<button id="button-submit"  onclick="javascript:click_submit();">Submit</button>     
+                <button id="button-clear1"  onclick="javascript:click_clear_warnings();">Clear warnings</button>
+                <button id="button-clear2"  onclick="javascript:click_clear_all();">Clear form</button>
+
+
+              <div id="input-form"  class="content"></div>
+
+              <div>
+                <button id="button-submit_2" onclick="javascript:click_submit();">Submit</button>     
+                <button id="button-clear1_2" onclick="javascript:click_clear_warnings();">Clear warnings</button>
+                <button id="button-clear2_2" onclick="javascript:click_clear_all();">Clear form</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+
+  <div id="dialog-submit" title="Entry submitted">
+    <p>Your entry has been submitted.</p>
+  </div>
+  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
   <script type="text/javascript" src="js/collapsing.js"></script>
@@ -18,82 +198,7 @@
   <script type="text/javascript" src="js/jquery.placehold-0.3.min.js"></script>      
   <script type="text/javascript" src="js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="js/additional-methods.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>	
-  
-  
-</head>
-
-<body>
-
-  <div id="header"><img src="images/edelweiss.jpg" width="200"></img> <img src="images/KIT-Logo.png" width="180" align="right"></img>
-    <h1>NTD Characteristics Measurement Database for Edelweiss</h1></div>
-
-  <div id="tabs">
-
-    <ul>
-      <li onclick="javascript:getAllNtds();" ><a href="#tab-allntds">All NTDs</a></li>
-	  <li><a href="#tab-search">Search</a></li>
-      <li><a href="#tab-submit">Submit</a></li>
-    </ul>
-
-
-    <div id="tab-allntds">
-
-      <div>
-          <!-- <input id="box-search" placeholder="e.g. ntd_name:38-2" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
-                  <button id="button-search"  onclick="javascript:click_search();">Search</button>
-
-            will add here a way to search for just the NTD name. 
-                   -->
-          
-          <button id="button-expand"  onclick="javascript:click_expand();">Expand All</button> 
-          <button id="button-collapse"  onclick="javascript:click_collapse();">Collapse All</button> 
-      </div>
-
-      <div id="allntdrecords" class="content"></div>
-
-    </div>
-      
-    <div id="tab-search">
-
-	   <div>
-       <input id="box-search" placeholder="e.g. 38-2" onkeydown="javascript:enter_box(event);" class="ui-widget ui-widget-content ui-corner-all"/> 
-       <button id="button-search" onclick="javascript:click_search();">Search</button>
-	      <button id="button-expand2"  onclick="javascript:click_expand();">Expand All</button> 
-          <button id="button-collapse2"  onclick="javascript:click_collapse();">Collapse All</button>
-		  <a href="http://lucene.apache.org/java/3_4_0/queryparsersyntax.html">(click here for query syntax)</a>
-	   </div>
-			
-	   <div id="searchntdrecords" class="content"></div>
-	
-	</div>
-  
-    <div id="tab-submit">
-        <input id="loginname" type="text" class="ui-widget ui-widget-content ui-corner-all"/>
-        <input id="loginpassword" type="password"  onkeydown="javascript:enter_password(event);" class="ui-widget ui-widget-content ui-corner-all"/>
-        <button id="button-login" onclick="javascript:login();" >Login</button>
-        <button id="button-logout"  onclick="javascript:logout();" align="right">Logout</button>
-     	<button id="button-submit"  onclick="javascript:click_submit();">Submit</button>     
-        <button id="button-clear1"  onclick="javascript:click_clear_warnings();">Clear warnings</button>
-        <button id="button-clear2"  onclick="javascript:click_clear_all();">Clear form</button>
-     
-
-      <div id="input-form"  class="content"></div>
-
-      <div>
-        <button id="button-submit_2" onclick="javascript:click_submit();">Submit</button>     
-        <button id="button-clear1_2" onclick="javascript:click_clear_warnings();">Clear warnings</button>
-        <button id="button-clear2_2" onclick="javascript:click_clear_all();">Clear form</button>
-      </div>
-      
-    </div>
-
-
-  <div id="dialog-submit" title="Entry submitted">
-    <p>Your entry has been submitted.</p>
-  </div>
-
+  <script type="text/javascript" src="js/bootstrap-tab.js"></script>
 
 </body>
 
